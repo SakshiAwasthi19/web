@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            padding-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Factorial</h1>
+    Enter a number: <input id="number"><br><br>
+    <button onclick="fact1()">Factorial</button>
+    <p id="res"></p>
+
+    <script>
+        function fact(num){
+            if(num==0)
+            return 1;
+            else
+            return num*fact(num-1);
+        }
+
+        function fact1(){
+            var num=document.getElementById("number").value;
+            var f=fact(num);
+
+            document.getElementById("res").textContent=`Factorial of ${num} is ${f}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration and Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registration and Login</h1>
+    
+    <h2>Register</h2>
+    <label for="reg-username">Username (3-15 characters):</label>
+    <input type="text" id="reg-username" placeholder="Enter username">
+    <br><br>
+    <label for="reg-password">Password (8 characters, 1 special character):</label>
+    <input type="password" id="reg-password" placeholder="Enter password">
+    <br><br>
+    <button onclick="register()">Register</button>
+    <p id="reg-message" class="error"></p>
+    
+    <h2>Login</h2>
+    <label for="login-username">Username:</label>
+    <input type="text" id="login-username" placeholder="Enter username">
+    <br><br>
+    <label for="login-password">Password:</label>
+    <input type="password" id="login-password" placeholder="Enter password">
+    <br><br>
+    <button onclick="login()">Login</button>
+    <p id="login-message" class="error"></p>
+    
+    <script>
+        // Store registered user credentials
+        let registeredUser = null;
+
+        function register() {
+            const username = document.getElementById("reg-username").value;
+            const password = document.getElementById("reg-password").value;
+            let message = "";
+
+            // Username validation
+            if (username.length < 3 || username.length > 15) {
+                message += "Username must be between 3 and 15 characters long.<br>";
+            }
+
+            // Password validation
+            const specialCharacterPattern = /[!@#$%^&*(),.?":{}|<>]/g;
+            if (password.length < 8 || !specialCharacterPattern.test(password)) {
+                message += "Password must be at least 8 characters long and contain at least one special character.<br>";
+            }
+
+            // If no errors, save registered user
+            if (!message) {
+                registeredUser = { username, password };
+                message = "Registration successful! You can now log in.";
+                document.getElementById("reg-message").className = "success";
+            } else {
+                document.getElementById("reg-message").className = "error";
+            }
+
+            document.getElementById("reg-message").innerHTML = message;
+        }
+
+        function login() {
+            const username = document.getElementById("login-username").value;
+            const password = document.getElementById("login-password").value;
+            let message = "";
+
+            // Check if user is registered
+            if (registeredUser) {
+                if (registeredUser.username === username && registeredUser.password === password) {
+                    message = "Login successful! Welcome back, " + username + "!";
+                    document.getElementById("login-message").className = "success";
+                } else {
+                    message = "Invalid username or password. Please try again.";
+                    document.getElementById("login-message").className = "error";
+                }
+            } else {
+                message = "No registered users. Please register first.";
+                document.getElementById("login-message").className = "error";
+            }
+
+            document.getElementById("login-message").innerHTML = message;
+        }
+    </script>
+</body>
+</html>
